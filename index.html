@@ -16,16 +16,6 @@
         <div class="auth-box">
             <h2>Welcome to Typeflow</h2>
             
-            <!-- Google Login Button -->
-            <button id="googleLogin" class="auth-button">
-                <img src="https://img.icons8.com/color/48/000000/google-logo.png" 
-                     alt="Google Logo"
-                     class="provider-icon">
-                Continue with Google
-            </button>
-            
-            <div class="separator">OR</div>
-            
             <!-- Email/Password Form -->
             <form id="emailAuth" class="auth-form">
                 <input type="email" 
@@ -51,6 +41,13 @@
                     </button>
                 </div>
             </form>
+            
+            <div class="separator">OR</div>
+            
+            <!-- Guest Login Option -->
+            <button id="guestLogin" class="auth-button">
+                Continue as Guest
+            </button>
         </div>
     </div>
 
@@ -69,20 +66,6 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-
-        // Google Sign-In Handler
-        document.getElementById('googleLogin').addEventListener('click', (e) => {
-            e.preventDefault();
-            const provider = new firebase.auth.GoogleAuthProvider();
-            
-            auth.signInWithPopup(provider)
-                .then(() => {
-                    window.location.href = 'app.html';
-                })
-                .catch((error) => {
-                    alert('Google login failed: ' + error.message);
-                });
-        });
 
         // Email/Password Login Handler
         document.getElementById('emailAuth').addEventListener('submit', (e) => {
@@ -111,6 +94,18 @@
                 })
                 .catch((error) => {
                     alert('Registration failed: ' + error.message);
+                });
+        });
+
+        // Guest Login Handler
+        document.getElementById('guestLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            auth.signInAnonymously()
+                .then(() => {
+                    window.location.href = 'app.html';
+                })
+                .catch((error) => {
+                    alert('Guest login failed: ' + error.message);
                 });
         });
 
