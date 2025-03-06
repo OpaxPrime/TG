@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TYPEGLOW - Typing Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body>
+    <!-- Application Header -->
+    <div id="logo">TYPEGLOW</div>
+    
+    <!-- Controls Section -->
+    <div id="controls">
+        <button id="startButton" class="auth-button">Start Test</button>
+        
+        <select id="durationSelect" class="mode-select">
+            <option value="15">15 seconds</option>
+            <option value="30">30 seconds</option>
+            <option value="45">45 seconds</option>
+            <option value="60">1 minute</option>
+            <option value="120">2 minutes</option>
+            <option value="150">2.5 minutes</option>
+            <option value="180">3 minutes</option>
+        </select>
+        
+        <select id="modeSelect" class="mode-select">
+            <option value="default">Default Mode</option>
+            <option value="comma">Comma Challenge</option>
+            <option value="punctuation">Punctuation Mix</option>
+            <option value="numbers">Numbers Mode</option>
+            <option value="symbols">Symbols Mode</option>
+            <option value="caseSensitive">Case Sensitive</option>
+        </select>
+
+        <div id="historyButton" class="history-button">
+            <span>📜 View History</span>
+        </div>
+    </div>
+
+    <!-- Timer Display -->
+    <div id="timer">00</div>
+
+    <!-- Main Typing Area -->
+    <div id="mainContent">
+        <div id="displayText"></div>
+    </div>
+
+    <!-- Results Overlay -->
+    <div id="resultsBackdrop">
+        <div id="resultsScreen">
+            <div class="close-results">✕</div>
+            <div id="wpmDisplay" class="result-item"></div>
+            <div id="accuracyDisplay" class="result-item"></div>
+            <div id="rawSpeedDisplay" class="result-item"></div>
+        </div>
+    </div>
+
+    <!-- History Panel -->
+    <div id="historyLog">
+        <div class="history-header">Recent Tests</div>
+        <div class="history-entries"></div>
+    </div>
+
+    <!-- Logout Button -->
+    <button id="logoutButton" class="auth-button logout-btn">Log Out</button>
+
+    <!-- Application Script -->
+    <script src="script.js"></script>
+
+    <!-- Firebase Initialization -->
+    <script>
+        // Firebase Configuration (Match your project settings)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCM1rMjhdJAilpz6MMfE2-eaT6gG4K-m9g",
+            authDomain: "typeglow-4d67d.firebaseapp.com",
+            projectId: "typeglow-4d67d",
+            storageBucket: "typeglow-4d67d.firebasestorage.app",
+            messagingSenderId: "463907606470",
+            appId: "1:463907606470:web:630e15cb8a9dc6d421ecc7"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TYPEFLOW - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body>
+    <div id="logo">TYPEFLOW</div>
+    
+    <!-- Authentication Container -->
+    <div class="auth-container">
+        <div class="auth-box">
+            <h2>Welcome to Typeflow</h2>
+            
+            <!-- Google Login Button -->
+            <button id="googleLogin" class="auth-button">
+                <img src="https://img.icons8.com/color/48/000000/google-logo.png" 
+                     alt="Google Logo"
+                     class="provider-icon">
+                Continue with Google
+            </button>
+            
+            <div class="separator">OR</div>
+            
+            <!-- Email/Password Form -->
+            <form id="emailAuth" class="auth-form">
+                <input type="email" 
+                       id="email" 
+                       placeholder="Email" 
+                       required
+                       class="auth-input">
+                
+                <input type="password" 
+                       id="password" 
+                       placeholder="Password" 
+                       required
+                       class="auth-input">
+                
+                <div class="auth-actions">
+                    <button type="submit" class="auth-button primary">
+                        Sign In
+                    </button>
+                    <button type="button" 
+                            id="register" 
+                            class="auth-button secondary">
+                        Register
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase Implementation -->
+    <script>
+        // Firebase Configuration - Replace with your actual values
+        const firebaseConfig = {
+            apiKey: "AIzaSyCM1rMjhdJAilpz6MMfE2-eaT6gG4K-m9g",
+            authDomain: "typeglow-4d67d.firebaseapp.com",
+            projectId: "typeglow-4d67d",
+            storageBucket: "typeglow-4d67d.firebasestorage.app",
+            messagingSenderId: "463907606470",
+            appId: "1:463907606470:web:630e15cb8a9dc6d421ecc7"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Google Sign-In Handler
+        document.getElementById('googleLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            const provider = new firebase.auth.GoogleAuthProvider();
+            
+            auth.signInWithPopup(provider)
+                .then(() => {
+                    window.location.href = 'app.html';
+                })
+                .catch((error) => {
+                    alert('Google login failed: ' + error.message);
+                });
+        });
+
+        // Email/Password Login Handler
+        document.getElementById('emailAuth').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    window.location.href = 'app.html';
+                })
+                .catch((error) => {
+                    alert('Login failed: ' + error.message);
+                });
+        });
+
+        // Registration Handler
+        document.getElementById('register').addEventListener('click', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    window.location.href = 'app.html';
+                })
+                .catch((error) => {
+                    alert('Registration failed: ' + error.message);
+                });
+        });
+
+        // Auto-redirect authenticated users
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                window.location.href = 'app.html';
+            }
+        });
+    </script>
+</body>
+</html>
