@@ -36,7 +36,6 @@ const domElements = {
     accuracyDisplay: document.getElementById('accuracyDisplay'),
     rawSpeedDisplay: document.getElementById('rawSpeedDisplay'),
     historyButton: document.getElementById('historyButton'),
-    historyLog: document.getElementById('historyLog'),
     resultsBackdrop: document.getElementById('resultsBackdrop'),
     logoutButton: document.getElementById('logoutButton'),
     modeSelect: document.getElementById('modeSelect')
@@ -224,7 +223,6 @@ async function startTest() {
     domElements.displayText.innerHTML = '';
     domElements.resultsScreen.style.display = 'none';
     domElements.resultsBackdrop.style.display = 'none';
-    domElements.historyLog.style.display = 'none';
     
     // Set initial time
     appState.timeLeft = parseInt(domElements.durationSelect.value);
@@ -347,19 +345,28 @@ function endTest() {
 
 // History System
 function toggleHistory() {
-    const isVisible = domElements.historyLog.style.display === 'block';
-    domElements.historyLog.style.display = isVisible ? 'none' : 'block';
+    // Show the results screen with history data
+    domElements.resultsBackdrop.style.display = 'block';
+    domElements.resultsScreen.style.display = 'block';
     
-    if (!isVisible) {
-        domElements.historyLog.innerHTML = appState.history.slice(-3).map(entry => `
+    // Display history in the results screen
+    domElements.resultsScreen.innerHTML = `
+        <div class="close-results">✕</div>
+        <h3>Recent Tests</h3>
+        ${appState.history.slice(-3).map(entry => `
             <div class="logEntry">
                 <strong>${entry.date}</strong><br>
                 WPM: ${entry.wpm}<br>
                 Accuracy: ${entry.accuracy}%<br>
                 Raw: ${entry.rawSpeed}
             </div>
-        `).join('');
-    }
+        `).join('')}
+    `;
+    
+    document.querySelector('.close-results').addEventListener('click', () => {
+        domElements.resultsBackdrop.style.display = 'none';
+        domElements.resultsScreen.style.display = 'none';
+    });
 }
 
 // Event Listeners
