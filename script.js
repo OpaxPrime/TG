@@ -209,41 +209,42 @@ function startTimer() {
 
 // Test Management
 async function startTest() {
-    if (appState.isTestRunning) return;
-    
-    // Reset state
-    appState.usedWords.clear();
-    appState.linesOfText = [];
-    appState.currentIndex = 0;
-    appState.isTestRunning = true;
-    appState.timerStarted = false;
+  // Stop any existing test
+  if (appState.isTestRunning) {
     clearInterval(appState.timer);
-    
-    // Clear UI
-    domElements.displayText.innerHTML = '';
-    domElements.resultsScreen.style.display = 'none';
-    domElements.resultsBackdrop.style.display = 'none';
-    
-    // Set initial time
-    appState.timeLeft = parseInt(domElements.durationSelect.value);
-    domElements.timerDisplay.textContent = appState.timeLeft;
-
-    // Generate initial lines
-    try {
-        const lines = await Promise.all(Array(5).fill().map(() => generateRandomLine()));
-        appState.linesOfText = lines.filter(line => line.length > 0);
-        domElements.displayText.innerHTML = appState.linesOfText.slice(0, 3)
-            .map(line => `<div class="line">${line.split('').map(c => `<span>${c}</span>`).join('')}</div>`)
-            .join('');
-    } catch (error) {
-        console.error('Initial line generation failed:', error);
-    }
-
-    // Start line buffer maintenance
-    maintainLineBuffer();
-    highlightCurrentCharacter();
+    appState.isTestRunning = false;
+    appState.timerStarted = false;
+    domElements.displayText.innerHTML = ''; // Clear current text
+  }
+  
+  // Full state reset
+  appState.usedWords.clear();
+  appState.linesOfText = [];
+  appState.currentIndex = 0;
+  appState.isTestRunning = true;
+  appState.timeLeft = parseInt(domElements.durationSelect.value);
+  domElements.timerDisplay.textContent = appState.timeLeft;
+  
+  // Clear UI elements
+  domElements.resultsScreen.style.display = 'none';
+  domElements.resultsBackdrop.style.display = 'none';
+  
+  // Generate new content
+  try {
+    const lines = await Promise.all(Array(5).fill().map(() => generateRandomLine()));
+    appState.linesOfText = lines.filter(line => line.length > 0);
+    domElements.displayText.innerHTML = appState.linesOfText.slice(0, 3)
+      .map(line => `<div class="line">${line.split('').map(c => `<span>${c}</span>`).join('')}</div>`)
+      .join('');
+  } catch (error) {
+    console.error('Line generation failed:', error);
+    appState.linesOfText = [generateFallbackText('default')];
+  }
+  
+  // Start fresh
+  maintainLineBuffer();
+  highlightCurrentCharacter();
 }
-
 async function maintainLineBuffer() {
     while (appState.isTestRunning) {
         if (appState.linesOfText.length < appState.lineBuffer) {
