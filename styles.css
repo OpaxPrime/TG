@@ -58,7 +58,7 @@ body {
 #timer {
     position: fixed;
     left: 20px;
-    top: 450px; /* Moved down from 320px */
+    top: 360px;
     font-size: 2.5em;
     color: #ff0066;
     text-shadow: 0 0 15px #ff0066;
@@ -82,7 +82,7 @@ body {
 
 #historyLog {
     position: fixed;
-    top: 520px; /* Moved down below the timer */
+    top: 390px;
     left: 20px;
     background: rgba(0, 0, 0, 0.9);
     padding: 20px;
@@ -341,4 +341,25 @@ input[type="password"] {
     display: flex;
     gap: 10px;
     margin-top: 20px;
+}
+
+/* Logout button styling */
+#logoutButton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    width: auto;
+    z-index: 1000;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+    #logoutButton {
+        top: 15px;
+        right: 15px;
+        padding: 6px 12px;
+        font-size: 12px;
+    }
 }
