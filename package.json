@@ -1,0 +1,14 @@
+{
+  "name": "web-project",
+  "version": "1.0.0",
+  "description": "A simple web project",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server --port=3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+  }
+}

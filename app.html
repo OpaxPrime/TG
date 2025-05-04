@@ -9,6 +9,11 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
 <body>
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <!-- Navigation moved to right side -->
+    </div>
+
     <!-- Application Header -->
     <div id="logo">TYPEGLOW</div>
     
@@ -29,7 +34,6 @@
         <select id="modeSelect" class="mode-select">
             <option value="default">Default Mode</option>
             <option value="comma">Comma Challenge</option>
-            <option value="punctuation">Punctuation Mix</option>
             <option value="numbers">Numbers Mode</option>
             <option value="symbols">Symbols Mode</option>
             <option value="caseSensitive">Case Sensitive</option>
@@ -57,10 +61,56 @@
             <div id="rawSpeedDisplay" class="result-item"></div>
         </div>
     </div>
-
-    <!-- Logout Button -->
+<!-- Right Side Navigation -->
+<div id="rightNav">
     <button id="logoutButton" class="auth-button logout-btn">Log Out</button>
+    <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+    </div>
+</div>
 
+
+    <!-- Content Sections (Initially Hidden) -->
+    <div id="contentSections">
+        <section id="contact" class="content-section" style="display: none;">
+            <h2>Contact Us</h2>
+            <p>If you have any questions, feedback, or suggestions, please don't hesitate to contact us.</p>
+            <p>You can reach us via email at <a href="mailto:support@typeglow.com">support@typeglow.com</a>.</p>
+        </section>
+
+        <section id="privacy" class="content-section" style="display: none;">
+            <h2>Privacy Policy</h2>
+            <p>Your privacy is important to us. This privacy policy explains how we collect, use, and protect your personal information.</p>
+            <p>We collect minimal data required for authentication and personalization, such as your email address.  We do not share your data with third parties.</p>
+            <p>By using TYPEGLOW, you consent to the terms outlined in this policy.</p>
+            <p>For further details, please contact us at the email address above.</p>
+        </section>
+
+        <section id="terms" class="content-section" style="display: none;">
+            <h2>Terms of Service</h2>
+            <p>By using TYPEGLOW, you agree to comply with these terms of service.</p>
+            <p>You may not use this application for any unlawful purposes.  Any misuse or abuse of the application may result in termination of access.</p>
+            <p>We reserve the right to modify these terms at any time.  It is your responsibility to review these terms periodically for any changes.</p>
+        </section>
+        <section id="about" class="content-section" style="display: none;">
+            <h2>About TYPEGLOW</h2>
+            <p>TYPEGLOW is a typing test application designed to help you improve your typing speed and accuracy.  It offers various modes and customizable durations to suit your practice needs.</p>
+            <p>We believe that practicing regularly can significantly enhance your typing skills.  TYPEGLOW provides a platform for consistent practice and progress tracking.</p>
+        </section>
+    </div>
+    
+    
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => section.style.display = 'none');
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    </script>
     <!-- Application Script -->
     <script src="script.js"></script>
 

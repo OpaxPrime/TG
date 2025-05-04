@@ -56,27 +56,84 @@ let appState = {
 };
 
 // Text Generation Configuration
-const generationRules = {
-    base: "Generate content for typing test. Strict rules: NO 3-letter words, NO word repetitions in session.",
+const generationRules = {   
+    base: "Generate content for typing test. Do not use any 3 letter words. Ensure there are no word repetitions in session.",
     modes: {
         comma: "Create complex sentences with multiple commas (15-20 words).",
-        punctuation: "Sentence with varied punctuation (!?;-) (15-20 words).",
         numbers: "Insert numbers after every two words (15-20 words).",
         symbols: "Include symbols after every word (15-20 words).",
         caseSensitive: "Capitalize every 2-3 words randomly (15-20 words).",
-        default: "15-20 random lowercase words (4-8 letters). NO MEANING."
+        default: "15-20 random lowercase words (4-8 letters).  Make up random words with random letter combinations."
     },
     fallbackWords: [
-        'quantum','nebula','velocity','sapphire','phantom','galaxy',
-        'vortex','chroma','pulse','zenith','echo','lunar','digital',
-        'fusion','crystal','matrix','photon','infinity','dynamic',
-        'spectrum','neon','orbit','vector','hyper','cosmic','frequency'
-    ]
+        // Core technical
+        'quantum', 'nebula', 'velocity', 'sapphire', 'phantom', 'galaxy', 'entropy',
+        'vortex', 'chroma', 'pulse', 'zenith', 'echo', 'lunar', 'digital', 'flux',
+        'fusion', 'crystal', 'matrix', 'photon', 'infinity', 'dynamic', 'tesseract','moxe', 'flim', 'gorp', 'wift', 'byre', 'clot', 'davy', 'fech', 'gawm', 'hoxy', 'jurl', 'kyte', 'lave', 'milt',
+          'noil', 'orby', 'pash', 'quip', 'ryke', 'toze', 'vawn', 'wift', 'xylo', 'yech', 'zurn','blot', 'crin', 'doff', 'fain',
+          'gowl', 'haze', 'joky', 'kray', 'lode', 'mope', 'nosh', 'owly', 'pith', 'quag', 'rant', 'trop', 'virl', 'wade',
+          'xyst', 'yolk', 'zany', 'bode', 'cuny', 'dreg', 'flab', 'goby', 'hurl', 'jinx', 'keel', 'lurk', 'moat', 'naut', 'oily',
+          'pock', 'quib', 'rowt', 'tofu', 'vamp', 'woof', 'xyre', 'yack','braw', 'cloy', 'dirl', 'fawn', 'glox', 'haze',
+          'jock', 'krag', 'loon', 'narp', 'noyp', 'ofix', 'pize', 'quip', 'ramp', 'toil', 'volt', 'weld', 'xeme', 'yird','blug', 'croc', 'doxx', 'feck', 'glop', 'hurl', 'jolt', 'knur', 'luny', 'mird', 'nary', 'ogre', 'plox', 'quid', 'raze',
+          'tump', 'vrax', 'wize', 'xurt', 'yarn', 'zuff', 'bort', 'crug', 'dorn', 'flep', 'gant', 'hump', 'jarp', 'kipz', 'loft',
+          'moxz', 'narp', 'ovet', 'palt', 'qoph', 'rext', 'tuft', 'volm', 'wirt', 'xant', 'yern', 'cump', 'dyze', 'flet',
+        'gorn', 'harl', 'jump', 'kelt', 'lopt', 'motz', 'nift', 'otly', 'plax', 'quim', 'royt', 'voxy', 'waze', 'xent', 'yink',
+        // Computer
+        'recursion', 'algorithm', 'polymorph', 'obfuscate', 'quantize', 'isomorphic',
+        'nanocluster', 'metamorph', 'cybernetic', 'dystopian', 'holograph', 'symbiosis',
+        // Biology 
+        'biolumine','biodome','hydroponic','luminescent','kinetic',
+        
+        // Emerging tech
+        'xenon','yottabyte','zeitgeist','vaporwave','wavelength','oscillate',
+        'kaleidoscope','juxtapose','paradox','algorithmic','astral','synthetic',
+        
+        // Rare/novel terms
+        'chronostasis','eigenvalue','flabbergast','gobbledygook','hemidemisemiquaver',
+        'idempotent', 'jackanapes', 'kludge', 'mnemonic', 'nondescript', 'onomatopoeia',
+        'persnickety', 'quintessential', 'ratiocinate', 'sesquipedalian', 'tintinnabulation',
+        'umlaut', 'verisimilitude', 'welterweight', 'xanthophyll', 'yammer', 'zeugma','bloc', 'furl', 'grit', 'jamb', 'lurk', 'mump', 'numb', 'plop', 'quid', 'rift', 'tuxy', 'verv', 'warp', 'xyl',
+        'blix', 'crub', 'durn', 'flit', 'goth', 'harl', 'jimp', 'klit', 'long', 'muld', 'nipt', 'obyz', 'plex', 'quim',
+        'rint', 'turb', 'vark', 'wolt', 'xyme', 'yelt', 'borg', 'crul', 'ditz', 'floy', 'girt', 'hyte', 'jilt', 'kump',
+        'loyn', 'nurl', 'oxen', 'plix', 'quin', 'royl', 'tarn', 'vert', 'woof', 'xurt', 'yird', 'blud', 'crut', 'duff',
+        'fluz', 'gurn', 'harp', 'jove', 'kipp', 'luff', 'moit', 'noul', 'oyst', 'pout', 'quap', 'rute', 'tore', 'vort', 'wyle',
+        'xant', 'yote', 'zurb', 'bylt', 'crat', 'doil', 'flut', 'gran', 'jolt', 'kirt', 'lopy', 'mort', 'noup', 'oink', 'ruft',
+        'trum', 'vold', 'wurn', 'xure', 'yurt', 'zort', 'bloc', 'frip', 'glab', 'hoax', 'jinx', 'lump', 'munt', 'natz', 'opus',
+        'poxy', 'rowt', 'tarp', 'vane', 'womp', 'xyre','brax', 'clum', 'dray', 'fain', 'glob', 'huip', 'jork', 'kilp',
+        'lorn', 'milt', 'nowt', 'opts', 'ploy', 'rant', 'trug', 'voxy', 'wize', 'yack', 'brut', 'crul', 'dole', 'goof',
+        'hump', 'juvy', 'krep', 'loit', 'mutt', 'nazy', 'obey', 'plat', 'quit', 'roil', 'torn', 'vrow', 'wail', 'xylo',
+        'bary', 'clop', 'dirl', 'fawn', 'glox', 'haze', 'jock', 'krag', 'loon', 'narp', 'noyp', 'ofix', 'pize', 'quip', 'volt',
+        'xeme','blug', 'croc', 'doxx', 'feck', 'glop', 'hurl', 'knur', 'luny', 'mird', 'nary', 'ogre', 'plox', 'raze',
+        'tump', 'vrax', 'wize', 'xurt', 'yarn', 'zuff',
+        // More diverse 4/5 letter words
+        'amber', 'azure', 'brass', 'cedar', 'coral', 'ebony', 'flint', 'ivory',
+        'jade', 'khaki', 'linen', 'mauve', 'ochre', 'periwinkle', 'raven', 
+        'sepia', 'umber', 'vermilion', 'wheat', 'agate', 'beige', 'champagne',
+        'copper', 'cream', 'daffodil', 'denim', 'fuchsia', 'ginger', 'garnet', 'hickory',
+        'indigo', 'lavender', 'magenta', 'maroon', 'opal', 'plum', 'rust', 'salmon',
+        'tan', 'taupe', 'thistle', 'topaz', 'violet', 'cider', 'lemon', 'mango',
+        'minty', 'olive', 'peach', 'berry', 'almond', 'arbutus', 'auburn', 'bistre', 'blush', 'burlap', 'butterscotch', 'carmine',
+        'celadon', 'cerulean', 'charcoal', 'chartreuse', 'claret', 'clove', 'cobweb', 'cochineal',
+        'cornsilk', 'cypress', 'damask', 'dandelion', 'dove', 'ecru', 'eggshell', 'eldritch',
+        'fern', 'fallow', 'feldspar', 'fog', 'galena', 'gamboge', 'glaucous', 'granite',
+        'gunmetal', 'heliotrope', 'hemp', 'henna', 'honeydew', 'iceberg', 'iris', 'iron',
+        'isabelline', 'jasmine', 'jonquil', 'kaolin', 'kelp', 'lapis', 'larch', 'lazuli',
+        'lichen', 'mahogany', 'mallow', 'manzanita', 'maple', 'merlot', 'mica', 'mocha',
+        'mulberry', 'musk', 'myrtle', 'nacre', 'navel', 'nectarine', 'nickel', 'obsidian',
+        'ocherous', 'onyx', 'pansy', 'papaya', 'parchment', 'patina', 'pewter', 'pine',
+        'porcelain', 'pumice', 'quartz', 'quince', 'raisin', 'reed', 'roan', 'rosewood',
+        'saffron', 'sangria', 'sienna', 'silica', 'silken', 'slate', 'smoke', 'snowdrop',
+        'sorrel', 'spruce', 'straw', 'sulfur', 'tamarind', 'tangerine', 'tannin', 'tarragon',
+        'teak', 'terra', 'tin', 'titanium', 'tundra', 'turmeric', 'umbered', 'wisteria','vrow'
+      ]
 };
 
+
+// Retry wrapper for API calls
 // API Configuration
 const API_CONFIG = {
-    KEY: 'AlzaSyDignJlIEGilMpBX4exdCVX_pbIWuwHFaRk',
+
+    KEY: 'AIzaSyCM1rMjhdJAilpz6MMfE2-eaT6gG4K-m9g',
     URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'
 };
 
@@ -97,25 +154,39 @@ async function generateRandomLine() {
     const prompt = `${generationRules.base} ${generationRules.modes[mode]}`;
 
     try {
-        const response = await fetch(`${API_CONFIG.URL}?key=${API_CONFIG.KEY}`, {
+        const response = await fetchWithRetry(`${API_CONFIG.URL}?key=${API_CONFIG.KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }]
+                contents: [{
+                    parts: [{ text: prompt }],
+                    safetySettings: [
+                        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+                        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+                    ],
+                    systemInstruction: {
+                        parts: [{
+                            text: "You are a technical term generator. Create novel, complex words using scientific roots. Prioritize uniqueness over meaning."
+                        }]
+                    },
+                    generationConfig: {
+                        temperature: 1.0,
+                        maxOutputTokens: 250,
+                        topP: 0.95,
+                        topK: 40
+                    }
+                }]
             })
-        });
-
+        }, 2);
         const data = await response.json();
         return processGeneratedText(data.candidates[0].content.parts[0].text, mode);
     } catch (error) {
         console.error('API Error:', error);
-        return generateFallbackText(mode);
+         return generateFallbackText(mode);
     }
 }
-
-function processGeneratedText(text, mode) {
-    let processed = text.replace(/\b\w{1,3}\b/g, '').replace(/\s+/g, ' ').trim();
     
+function processGeneratedText(text, mode) {let processed = text.replace(/\b\w{1,2}\b/g, '').replace(/\s+/g, ' ').trim();
     // Mode-specific processing
     switch(mode) {
         case 'numbers':
@@ -136,13 +207,17 @@ function processGeneratedText(text, mode) {
                 (index % 3 === 0) ? word.toUpperCase() : word.toLowerCase()
             ).join(' ');
             break;
+    
     }
 
-    // Filter unique words
-    const words = processed.split(' ').filter(word => 
-        word.length >= 4 && !appState.usedWords.has(word)
-    );
-    words.forEach(word => appState.usedWords.add(word));
+        const words = processed.split(' ').filter(word => {
+            return !appState.usedWords.has(word) &&
+            !/(\w)\1{2,}/.test(word) &&
+            // Block repeated characters
+            !/[aeiou]{3}/i.test(word) && // Block vowel clusters
+            !/(.)\1.{2}\1/i.test(word) // Block phonetic patterns
+        });
+        words.forEach(word => appState.usedWords.add(word));
     
     return words.join(' ') || generateFallbackText(mode);
 }
@@ -153,12 +228,18 @@ function generateFallbackText(mode) {
     );
     const selectedWords = [];
     
-    while (selectedWords.length < 15 && availableWords.length > 0) {
-        const randomIndex = Math.floor(Math.random() * availableWords.length);
-        const word = availableWords.splice(randomIndex, 1)[0];
-        selectedWords.push(word);
-        appState.usedWords.add(word);
+    // Shuffle available words using Fisher-Yates algorithm
+    for (let i = availableWords.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [availableWords[i], availableWords[j]] = [availableWords[j], availableWords[i]];
     }
+    
+    // Select first 15 unique words from shuffled list
+    selectedWords.push(...availableWords.splice(0, 15).filter(word =>
+        !appState.usedWords.has(word)
+    ));
+    
+    selectedWords.forEach(word => appState.usedWords.add(word));
 
     return mode === 'default' ? 
         selectedWords.join(' ') : 
@@ -175,14 +256,28 @@ function createModeSpecificFallback(words, mode) {
                 (index % 3 === 2) ? `${word} ${Math.floor(Math.random() * 100)}` : word
             ).join(' ');
         case 'symbols':
-            const symbols = ['#', '@', '&', '*', '$', '%', '^'];
+            const symbols = ['#', '@', '&', '*', '$', '%', '^', '~', '§', '¶', '¢', '£', '¥'];
             return words.map(word => word + symbols[Math.floor(Math.random() * symbols.length)]).join(' ');
         case 'caseSensitive':
             return words.map((word, index) => 
                 (index % 3 === 0) ? word.toUpperCase() : word.toLowerCase()
             ).join(' ');
-        default:
-            return words.join(' ');
+    default:
+        return words.join(' ');
+    }
+}
+
+async function fetchWithRetry(url, options, retries = 1) {
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response;
+    } catch (error) {
+        if (retries > 0) {
+            await new Promise(resolve => setTimeout(resolve, 500));
+            return fetchWithRetry(url, options, retries - 1);
+        }
+        throw error;
     }
 }
 
@@ -209,41 +304,28 @@ function startTimer() {
 
 // Test Management
 async function startTest() {
-  // Stop any existing test
-  if (appState.isTestRunning) {
-    clearInterval(appState.timer);
-    appState.isTestRunning = false;
+    // Clear existing test if running
+    if (appState.isTestRunning) {
+        clearInterval(appState.timer);
+        appState.isTestRunning = false;
+    }
+
+    // Reset state
+    appState.usedWords.clear();
+    appState.linesOfText = [];
+    appState.currentIndex = 0;
+    appState.isTestRunning = true;
+    appState.timeLeft = parseInt(domElements.durationSelect.value);
     appState.timerStarted = false;
-    domElements.displayText.innerHTML = ''; // Clear current text
-  }
-  
-  // Full state reset
-  appState.usedWords.clear();
-  appState.linesOfText = [];
-  appState.currentIndex = 0;
-  appState.isTestRunning = true;
-  appState.timeLeft = parseInt(domElements.durationSelect.value);
-  domElements.timerDisplay.textContent = appState.timeLeft;
-  
-  // Clear UI elements
-  domElements.resultsScreen.style.display = 'none';
-  domElements.resultsBackdrop.style.display = 'none';
-  
-  // Generate new content
-  try {
-    const lines = await Promise.all(Array(5).fill().map(() => generateRandomLine()));
-    appState.linesOfText = lines.filter(line => line.length > 0);
-    domElements.displayText.innerHTML = appState.linesOfText.slice(0, 3)
-      .map(line => `<div class="line">${line.split('').map(c => `<span>${c}</span>`).join('')}</div>`)
-      .join('');
-  } catch (error) {
-    console.error('Line generation failed:', error);
-    appState.linesOfText = [generateFallbackText('default')];
-  }
-  
-  // Start fresh
-  maintainLineBuffer();
-  highlightCurrentCharacter();
+    domElements.timerDisplay.textContent = appState.timeLeft;
+    domElements.resultsScreen.style.display = 'none';
+
+    // Generate and display content
+    const lines = await Promise.all(Array(3).fill().map(() => generateRandomLine()));
+    appState.linesOfText = lines;
+    domElements.displayText.innerHTML = appState.linesOfText.map(line => `<div class="line">${line.split('').map(c => `<span>${c}</span>`).join('')}</div>`).join('');    
+    maintainLineBuffer(); // Run without await to avoid blocking
+    highlightCurrentCharacter(); // Highlight the first character
 }
 async function maintainLineBuffer() {
     while (appState.isTestRunning) {
@@ -251,7 +333,7 @@ async function maintainLineBuffer() {
             try {
                 const newLine = await generateRandomLine();
                 appState.linesOfText.push(newLine);
-            } catch (error) {
+            } catch(error) {
                 appState.linesOfText.push(generateFallbackText('default'));
             }
         }
@@ -279,7 +361,7 @@ window.addEventListener('keydown', (e) => {
     characters[appState.currentIndex].classList.add(isCorrect ? 'correct' : 'incorrect');
     appState.currentIndex++;
     
-    if (appState.currentIndex > characters.length * 0.8) {
+        if (appState.currentIndex > characters.length * 0.8) {
         handleLineTransition();
     }
 
@@ -342,6 +424,7 @@ function endTest() {
         domElements.resultsBackdrop.style.display = 'none';
         domElements.resultsScreen.style.display = 'none';
     });
+    domElements.startButton.disabled = false;
 }
 
 // History System
@@ -371,12 +454,40 @@ function toggleHistory() {
 }
 
 // Event Listeners
-if (domElements.startButton) {
-    domElements.startButton.addEventListener('click', startTest);
-    domElements.historyButton.addEventListener('click', toggleHistory);
-}
+// Initialize event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    if (domElements.startButton) {
+        domElements.startButton.addEventListener('click', startTest);
+        domElements.historyButton.addEventListener('click', toggleHistory);
+    }
+    
+    // Initial text buffer population
+    if (domElements.displayText) {
+        domElements.displayText.innerHTML = appState.linesOfText.map(line =>
+            `<div class="line">${line.split('').map(c => `<span>${c}</span>`).join('')}</div>`
+        ).join('');
+    }
+});
 
 // Initial Setup
 if (domElements.displayText) {
     domElements.displayText.innerHTML = '<div class="line"></div>'.repeat(3);
 }
+
+// Create background particles
+function createParticles() {
+    const particleCount = 50;
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.width = particle.style.height =
+            Math.random() * 4 + 2 + 'px';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        document.body.appendChild(particle);
+    }
+}
+
+window.addEventListener('load', createParticles);
+
