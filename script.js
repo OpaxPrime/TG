@@ -310,7 +310,7 @@ async function startTest() {
         appState.isTestRunning = false;
     }
 
-    // Reset state
+    // Reset state and disable start button
     appState.usedWords.clear();
     appState.linesOfText = [];
     appState.currentIndex = 0;
@@ -319,6 +319,8 @@ async function startTest() {
     appState.timerStarted = false;
     domElements.timerDisplay.textContent = appState.timeLeft;
     domElements.resultsScreen.style.display = 'none';
+    domElements.startButton.disabled = true;
+    domElements.startButton.blur();
 
     // Generate and display content
     const lines = await Promise.all(Array(3).fill().map(() => generateRandomLine()));
@@ -459,6 +461,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (domElements.startButton) {
         domElements.startButton.addEventListener('click', startTest);
         domElements.historyButton.addEventListener('click', toggleHistory);
+
+        domElements.startButton.addEventListener('keydown', (e) => {
+            if (appState.isTestRunning && (e.key === ' ' || e.key === 'Enter')) {
+                e.preventDefault();
+            }
+        });
     }
     
     // Initial text buffer population
@@ -490,4 +498,3 @@ function createParticles() {
 }
 
 window.addEventListener('load', createParticles);
-
